@@ -60,16 +60,21 @@ public class Date
 
     public void setDate(String monthString, int day, int year)
     {
-        if (dateOK(monthString, day, year))
+        int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+ 	   
+       
+        	if (day <= daysInMonth[getMonth(monthString) - 1])
         {
-            this.month = monthString;
-            this.day = day;
-            this.year = year;
-        }
+     		System.out.println(day + " " + daysInMonth[getMonth(monthString) - 1]);
+ 	        this.month = monthString;
+ 	        this.day = day;
+ 	        this.year = year;
+ 	    }
+ 	    
+ 	   
         else
         {
-            System.out.println("Fatal Error in setDate(String,int, int)");
-            System.exit(0);
+            
         }
     }
 
@@ -111,6 +116,40 @@ public class Date
     }
 
     public int getMonth( )
+    {
+        if (month.equals("January"))
+            return 1;
+        else if (month.equals("February"))
+            return 2;
+        else if (month.equalsIgnoreCase("March"))
+            return 3;
+        else if (month.equalsIgnoreCase("April"))
+            return 4;
+        else if (month.equalsIgnoreCase("May"))
+            return 5;
+        else if (month.equals("June"))
+            return 6;
+        else if (month.equalsIgnoreCase("July"))
+            return 7;
+        else if (month.equalsIgnoreCase("August"))
+            return 8;
+        else if (month.equalsIgnoreCase("September"))
+            return 9;
+        else if (month.equalsIgnoreCase("October"))
+            return 10;
+        else if (month.equals("November"))
+            return 11;
+        else if (month.equals("December"))
+            return 12;
+        else
+        {
+            System.out.println("Fatal Error in getMonth");
+            System.exit(0);
+            return 0; //Needed to keep the compiler happy
+        }
+    }
+    
+    public int getMonth(String month)
     {
         if (month.equals("January"))
             return 1;
@@ -257,4 +296,34 @@ public class Date
         Date tester = new Date();
         System.out.println("tester is "+tester);
     }
+    
+    Date addOneDay(Date date){
+           int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    	   
+    	   if (date.getDay() < daysInMonth[date.getMonth() - 1])
+    	   {
+    		   date.setDay(date.getDay() + 1);
+    	   }
+    	   
+    	   if (date.getDay() == daysInMonth[date.getMonth() - 1]) 
+    	   {
+    		   if (date.getMonth() == 12)
+    		   {
+    			   date.setMonth(1);
+    			   date.setDay(1);
+    			   date.setYear(date.getYear() + 1);
+    		   }
+    		   
+    		   else
+    		   {
+    			   date.setMonth(date.getMonth() + 1);
+    			   date.setDay(1);
+    			   date.setYear(date.getYear() + 1);
+    		   }
+    	   }
+    	   
+    	   return date;
+    	   
+    }
+    
 }
